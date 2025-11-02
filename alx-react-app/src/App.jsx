@@ -3,15 +3,24 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-// ✅ Add the import for your new component
+// Existing component
 import WelcomeMessage from "./components/WelcomeMessage"
+
+// ✅ New components
+import Header from "./components/Header"
+import MainContent from "./components/MainContent"
+import Footer from "./components/Footer"
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      {/* ✅ Use your new component here */}
+      <Header />
+      <MainContent />
+      <Footer />
+
+      {/* ✅ Optional → Keep WelcomeMessage below Footer if you want */}
       <WelcomeMessage />
 
       <div>
@@ -24,6 +33,7 @@ function App() {
       </div>
 
       <h1>Vite + React</h1>
+
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -32,6 +42,7 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
+
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
