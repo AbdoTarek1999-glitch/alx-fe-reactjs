@@ -11,6 +11,9 @@ import Header from "./components/Header";
 import MainContent from "./components/MainContent";
 import Footer from "./components/Footer";
 
+// ✅ Import UserProfile
+import UserProfile from "./components/UserProfile";
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -18,6 +21,14 @@ function App() {
     <>
       <Header />
       <MainContent />
+
+      {/* ✅ User Profile Card */}
+      <UserProfile
+        name="Alice"
+        age={25}
+        bio="Loves hiking and photography"
+      />
+
       <Footer />
 
       {/* ✅ Optional → Keep WelcomeMessage below Footer if you want */}
