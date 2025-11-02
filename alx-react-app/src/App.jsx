@@ -1,29 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 // Existing component
-import WelcomeMessage from "./components/WelcomeMessage"
+import WelcomeMessage from "./components/WelcomeMessage";
 
 // ✅ New components
-import Header from "./components/Header"
-import MainContent from "./components/MainContent"
-import Footer from "./components/Footer"
+import Header from "./components/Header";
+import MainContent from "./components/MainContent";
+import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
       <Header />
       <MainContent />
-<<<<<<< HEAD
       <Footer />
 
       {/* ✅ Optional → Keep WelcomeMessage below Footer if you want */}
-=======
->>>>>>> 50d6a1601c28989e7161a27321bffb616d9bbeab
       <WelcomeMessage />
 
       <div>
@@ -52,7 +49,7 @@ function App() {
 
       <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
