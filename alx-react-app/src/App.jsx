@@ -18,9 +18,12 @@ function App() {
     <>
       <Header />
       <MainContent />
+<<<<<<< HEAD
       <Footer />
 
       {/* ✅ Optional → Keep WelcomeMessage below Footer if you want */}
+=======
+>>>>>>> 50d6a1601c28989e7161a27321bffb616d9bbeab
       <WelcomeMessage />
 
       <div>
@@ -46,6 +49,8 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+
+      <Footer />
     </>
   )
 }
