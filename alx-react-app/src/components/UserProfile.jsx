@@ -1,12 +1,14 @@
-function UserProfile({ name, age, bio }) {
+// src/components/UserProfile.jsx
+
+const UserProfile = (props) => {
     return (
-      <div className="user-card">
-        <h2>{name}</h2>
-        <p>Age: {age}</p>
-        <p>{bio}</p>
+      <div>
+        <h2>{props.name}</h2>
+        <p>Age: {props.age}</p>
+        <p>Bio: {props.bio}</p>
       </div>
     );
-  }
+  };
   
   export default UserProfile;
   

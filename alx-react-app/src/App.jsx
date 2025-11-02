@@ -11,7 +11,7 @@ import Header from "./components/Header";
 import MainContent from "./components/MainContent";
 import Footer from "./components/Footer";
 
-// ✅ Import UserProfile
+// ✅ UserProfile component
 import UserProfile from "./components/UserProfile";
 
 function App() {
@@ -21,18 +21,16 @@ function App() {
     <>
       <Header />
       <MainContent />
+      <Footer />
 
-      {/* ✅ User Profile Card */}
+      <WelcomeMessage />
+
+      {/* ✅ User Profile Component */}
       <UserProfile
         name="Alice"
         age={25}
         bio="Loves hiking and photography"
       />
-
-      <Footer />
-
-      {/* ✅ Optional → Keep WelcomeMessage below Footer if you want */}
-      <WelcomeMessage />
 
       <div>
         <a href="https://vite.dev" target="_blank">
