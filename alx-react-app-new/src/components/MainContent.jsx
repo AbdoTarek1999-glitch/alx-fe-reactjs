@@ -12,7 +12,7 @@ function MainContent() {
     >
       <h2 style={{ color: '#006064' }}>Welcome to My App</h2>
       <p style={{ fontSize: '18px', lineHeight: '1.6' }}>
-        This is the main content area where you can add descriptions, images, and more.
+        I love to visit New York, Paris, and Tokyo.
       </p>
     </main>
   );
