@@ -1,7 +1,7 @@
-// src/UserContext.js
-import React from 'react';
+import React, { createContext } from 'react';
 
-// إنشاء Context لتخزين بيانات المستخدم
-const UserContext = React.createContext();
+// إنشاء الـ Context
+const UserContext = createContext();
 
+// تصدير الـ Context لاستخدامه في المكونات الأخرى
 export default UserContext;

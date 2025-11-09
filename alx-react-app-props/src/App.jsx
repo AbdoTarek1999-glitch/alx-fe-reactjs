@@ -4,6 +4,7 @@ import MainContent from './components/MainContent';
 import Footer from './components/Footer';
 import Counter from './components/Counter';
 import UserProfile from './components/UserProfile';
+import ProfilePage from './components/ProfilePage';
 import UserContext from './UserContext'; // استدعاء الContext
 
 function App() {
