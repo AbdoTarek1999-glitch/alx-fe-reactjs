@@ -8,6 +8,8 @@ function MainContent() {
         padding: '20px',
         minHeight: '200px',
         textAlign: 'center',
+        borderRadius: '8px',
+        marginTop: '20px'
       }}
     >
       <h2 style={{ color: '#006064' }}>Welcome to My App</h2>
