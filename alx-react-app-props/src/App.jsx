@@ -4,9 +4,7 @@ import MainContent from './MainContent'; // تم تصحيح المسار
 import Footer from './Footer'; // تم تصحيح المسار
 import Counter from './Counter'; // تم تصحيح المسار
 import UserProfile from './UserProfile'; // تم تصحيح المسار
-
-// (ملاحظة: لقد قمت بإزالة استيراد ProfilePage هنا لأنها لم تعد مستخدمة)
-
+import ProfilePage from './ProfilePage';
 import UserContext from './UserContext'; // هذا المسار صحيح
 
 function App() {
