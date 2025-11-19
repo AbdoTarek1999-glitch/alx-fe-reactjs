@@ -1,27 +1,39 @@
-// src/components/RecipeList.jsx (تحديث)
+// src/components/RecipeList.jsx
 
-// ... (باقي الواردات)
-import { Link } from 'react-router-dom'; // إضافة رابط
+import React from 'react';
+import useRecipeStore from '../recipeStore';
+import { useNavigate } from 'react-router-dom';
+import FavoriteButton from './FavoriteButton'; // سيتم إنشاء هذا المكون لاحقاً
 
 const RecipeList = () => {
-  const recipes = useRecipeStore(state => state.recipes);
+  // استخدام 'filteredRecipes' بدلاً من 'recipes'
+  const filteredRecipes = useRecipeStore(state => state.filteredRecipes);
+  const navigate = useNavigate();
+
+  if (filteredRecipes.length === 0) {
+    return <p>لا توجد وصفات مطابقة لنتائج البحث.</p>;
+  }
 
   return (
-    <div>
-      <h2 style={{ borderBottom: '2px solid #eee', paddingBottom: '10px' }}>قائمة الوصفات</h2>
-      {recipes.length === 0 ? (
-        <p>لا توجد وصفات بعد. ابدأ بإضافة واحدة!</p>
-      ) : (
-        recipes.map(recipe => (
-          // استخدام Link للانتقال إلى مسار التفاصيل
-          <div key={recipe.id} style={{ border: '1px solid #ddd', padding: '15px', marginBottom: '10px', borderRadius: '4px' }}>
-            <Link to={`/recipes/${recipe.id}`} style={{ textDecoration: 'none', color: '#333' }}>
-              <h3 style={{ margin: '0 0 5px 0', color: '#007bff' }}>{recipe.title}</h3>
-            </Link>
-            <p style={{ margin: 0, color: '#666' }}>{recipe.description}</p>
+    <div style={{ marginTop: '20px' }}>
+      <h2>قائمة الوصفات</h2>
+      {filteredRecipes.map(recipe => (
+        <div 
+          key={recipe.id} 
+          style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '10px', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+        >
+          <div 
+            onClick={() => navigate(`/recipes/${recipe.id}`)}
+            style={{ cursor: 'pointer', flexGrow: 1 }}
+          >
+            <h4>{recipe.title}</h4>
+            <p style={{ margin: 0 }}>{recipe.description.substring(0, 50)}...</p>
           </div>
-        ))
-      )}
+          
+          {/* مهمة 3: زر المفضلة */}
+          <FavoriteButton recipeId={recipe.id} /> 
+        </div>
+      ))}
     </div>
   );
 };
