@@ -1,35 +1,45 @@
-// src/App.jsx (تحديث)
+// src/App.jsx
 
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
 import AddRecipeForm from './components/AddRecipeForm';
-// استيراد المكونات الجديدة
-import RecipeDetails from './components/RecipeDetails'; 
+import RecipeDetails from './components/RecipeDetails';
 import EditRecipeForm from './components/EditRecipeForm';
 
-function App() {
+// مكونات المهام 2 و 3
+import SearchBar from './components/SearchBar';
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
+
+
+const App = () => {
   return (
     <Router>
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-        <h1 style={{ textAlign: 'center', color: '#333' }}>تطبيق مشاركة الوصفات (Zustand)</h1>
-        <nav style={{ marginBottom: '20px', textAlign: 'center' }}>
-          <Link to="/" style={{ margin: '0 10px', textDecoration: 'none', color: '#007bff' }}>الرئيسية (القائمة)</Link>
-          <Link to="/add" style={{ margin: '0 10px', textDecoration: 'none', color: '#4CAF50' }}>إضافة وصفة</Link>
-        </nav>
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '20px', backgroundColor: '#f4f4f4' }}>
+        <header style={{ borderBottom: '2px solid #333', paddingBottom: '10px', marginBottom: '20px' }}>
+          <h1 style={{ color: '#333' }}>تطبيق مشاركة الوصفات</h1>
+          <nav>
+            <Link to="/" style={{ marginRight: '15px', textDecoration: 'none', color: '#007bff' }}>الرئيسية</Link>
+            <Link to="/add" style={{ textDecoration: 'none', color: '#28a745' }}>إضافة وصفة</Link>
+          </nav>
+        </header>
+
+        {/* ------------------------------------- */}
+        {/* منطقة البحث والمفضلة (المهام 2 و 3) */}
+        <SearchBar />
+        <FavoritesList />
+        <RecommendationsList />
+        {/* ------------------------------------- */}
         
         <Routes>
           <Route path="/" element={<RecipeList />} />
           <Route path="/add" element={<AddRecipeForm />} />
-          
-          {/* مسار تفاصيل الوصفة: يستخدم :id كمعامل */}
           <Route path="/recipes/:id" element={<RecipeDetails />} />
-          
-          {/* مسار تعديل الوصفة: يستخدم :id كمعامل */}
-          <Route path="/edit/:id" element={<EditRecipeForm />} />
+          <Route path="/recipes/:id/edit" element={<EditRecipeForm />} />
         </Routes>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
