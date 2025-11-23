@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+/* src/index.css أو src/App.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ... هنا يأتي باقي كود CSS الخاص بك ... */
