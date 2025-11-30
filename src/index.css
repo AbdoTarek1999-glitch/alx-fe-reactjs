@@ -66,10 +66,9 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-/* src/index.css أو src/App.css */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* ... هنا يأتي باقي كود CSS الخاص بك ... */
+/* You can remove or modify the default CSS below this line */
+/* For a clean start, you might delete the rest of the default content */
+/* ... */
