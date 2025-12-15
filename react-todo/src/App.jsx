@@ -1,14 +1,11 @@
-// src/App.jsx (لمشروع react-todo)
-import React from 'react';
-import TodoList from './components/TodoList'; // تأكد من المسار الصحيح
+import React from "react";
+import TodoList from "./components/TodoList";
 
-function App() {
+export default function App() {
   return (
-    <div style={{ padding: '50px', textAlign: 'center' }}>
-      <h1>مرحبًا في تطبيق قائمة المهام</h1>
+    <div>
+      <h1>Todo List App</h1>
       <TodoList />
     </div>
   );
 }
-
-export default App;
