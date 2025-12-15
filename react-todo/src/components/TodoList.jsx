@@ -1,63 +1,53 @@
-// src/components/TodoList.jsx
-import React, { useState } from 'react';
-import TodoItem from './TodoItem'; 
+import React, { useState } from "react";
+import AddTodoForm from "./AddTodoForm";
 
-const TodoList = () => {
+export default function TodoList() {
   const [todos, setTodos] = useState([
-    { id: 1, text: 'شراء البقالة', completed: false }, 
-    { id: 2, text: 'إنهاء مهمة React', completed: true }, 
+    { id: 1, text: "Learn React", completed: false },
+    { id: 2, text: "Build a project", completed: false }
   ]);
-  const [newTodoText, setNewTodoText] = useState(''); 
 
-  const addTodo = (e) => {
-    e.preventDefault();
-    if (newTodoText.trim() === '') return;
-    const newTodo = { id: Date.now(), text: newTodoText.trim(), completed: false };
+  const addTodo = (text) => {
+    const newTodo = {
+      id: Date.now(),
+      text,
+      completed: false
+    };
     setTodos([...todos, newTodo]);
-    setNewTodoText('');
   };
 
-  const toggleComplete = (id) => {
+  const toggleTodo = (id) => {
     setTodos(
-      todos.map(todo =>
+      todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>قائمة المهام</h1>
-
-      <form onSubmit={addTodo} style={{ marginBottom: '20px' }}>
-        <input
-          type="text"
-          value={newTodoText}
-          onChange={(e) => setNewTodoText(e.target.value)}
-          placeholder="أدخل مهمة جديدة..."
-          aria-label="New Todo Input" // 💡 نقطة الوصول للاختبار
-        />
-        <button type="submit" style={{ marginLeft: '10px' }}>
-          أضف مهمة
-        </button>
-      </form>
-
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {todos.map(todo => (
-          <TodoItem
+    <div>
+      <AddTodoForm addTodo={addTodo} />
+      <ul>
+        {todos.map((todo) => (
+          <li
             key={todo.id}
-            todo={todo}
-            toggleComplete={toggleComplete}
-            deleteTodo={deleteTodo}
-          />
+            style={{
+              textDecoration: todo.completed ? "line-through" : "none",
+              cursor: "pointer"
+            }}
+            onClick={() => toggleTodo(todo.id)}
+          >
+            {todo.text}{" "}
+            <button onClick={(e) => { e.stopPropagation(); deleteTodo(todo.id); }}>
+              Delete
+            </button>
+          </li>
         ))}
       </ul>
     </div>
   );
-};
-
-export default TodoList;
+}
