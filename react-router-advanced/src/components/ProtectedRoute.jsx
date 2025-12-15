@@ -3,11 +3,11 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
-  // 💡 يمكنك استخدام منطق مصادقة حقيقي هنا، لكن للمهمة سنفترض تسجيل الدخول
+  // افترض المصادقة (Authenticated) لإنجاز المهمة
   const isAuthenticated = true; 
   
   if (!isAuthenticated) {
-    // إذا لم يكن مسجل دخوله، يتم تحويله إلى الصفحة الرئيسية
+    // توجيه المستخدم إذا لم يكن مسجل دخوله
     return <Navigate to="/" replace />;
   }
 
