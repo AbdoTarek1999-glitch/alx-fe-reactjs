@@ -12,7 +12,7 @@ const TodoItem = ({ todo, toggleComplete, deleteTodo }) => {
       textDecoration: todo.completed ? 'line-through' : 'none' 
     }}>
       <div>
-        {/* Checkbox لتغيير حالة الإكمال (يجب أن يكون موجوداً) */}
+        {/* 💡 Checkbox مطلوب للاختبار */}
         <input
           type="checkbox"
           checked={todo.completed}
@@ -26,7 +26,6 @@ const TodoItem = ({ todo, toggleComplete, deleteTodo }) => {
       {/* زر الحذف */}
       <button 
         onClick={() => deleteTodo(todo.id)}
-        style={{ background: 'red', color: 'white', border: 'none', padding: '5px 10px' }}
       >
         حذف
       </button>
