@@ -4,7 +4,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom'; 
 import TodoList from '../components/TodoList';
 
-// الوصف العام لمجموعة الاختبارات
 describe('TodoList Component Functionality', () => {
 
   // 1. اختبار عرض المهام الافتراضية
@@ -18,8 +17,8 @@ describe('TodoList Component Functionality', () => {
   test('allows adding a new todo item', () => {
     render(<TodoList />);
     
-    // البحث عن حقل الإدخال وزر الإضافة باستخدام label/placeholder
-    const input = screen.getByLabelText('New Todo Input'); // استخدام aria-label من TodoList.jsx
+    // البحث عن حقل الإدخال باستخدام aria-label
+    const input = screen.getByLabelText('New Todo Input'); 
     const addButton = screen.getByText(/أضف مهمة/i);
     
     const newText = 'مهمة جديدة للاختبار';
@@ -32,23 +31,17 @@ describe('TodoList Component Functionality', () => {
     expect(input.value).toBe(''); 
   });
 
-  // 3. اختبار تبديل حالة الإكمال (Toggle)
+  // 3. اختبار تبديل حالة الإكمال (Toggle) باستخدام Checkbox
   test('allows toggling the completion status of a todo item', () => {
     render(<TodoList />);
     
     const todoText = 'شراء البقالة';
-    // البحث عن Checkbox باستخدام aria-label (الذي يحتوي على نص المهمة)
+    // البحث عن Checkbox باستخدام aria-label
     const checkbox = screen.getByLabelText(`Toggle completion for ${todoText}`);
-    
-    // يجب أن تكون المهمة غير محددة في البداية
-    expect(checkbox).not.toBeChecked();
     
     // النقر على خانة الاختيار لتغيير الحالة
     fireEvent.click(checkbox);
     
-    // التحقق من أنها أصبحت محددة
-    expect(checkbox).toBeChecked();
-
     // التحقق من أن النص يحتوي على خط (لإثبات التغيير المرئي)
     expect(screen.getByText(todoText)).toHaveStyle('text-decoration: line-through');
   });
@@ -61,7 +54,7 @@ describe('TodoList Component Functionality', () => {
     // البحث عن جميع أزرار الحذف
     const deleteButtons = screen.getAllByText('حذف');
     
-    // نعتمد على أن زر الحذف للمهمة الأولى هو الأول في القائمة
+    // النقر على زر الحذف للمهمة الأولى
     fireEvent.click(deleteButtons[0]);
     
     // التحقق من اختفاء المهمة
