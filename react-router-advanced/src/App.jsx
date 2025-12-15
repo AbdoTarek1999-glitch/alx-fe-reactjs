@@ -2,20 +2,21 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom'; 
 
-// استيراد جميع المكونات المطلوبة
+// يجب استيراد جميع المكونات التي تم إنشاؤها خلال المهمة
 import Home from './components/Home';
 import About from './components/About';
 import Dashboard from './components/Dashboard';
-import BlogPost from './components/BlogPost';      // 💡 المكون الديناميكي المطلوب
-import ProtectedRoute from './components/ProtectedRoute'; 
-import Profile from './components/Profile';         // لـ Nested Routes
-// يجب أن يكون لديك أيضاً ProfileDetails و ProfileSettings و PostDetail...
+import BlogPost from './components/BlogPost';      // للمسار الديناميكي /blog/:id
+import ProtectedRoute from './components/ProtectedRoute'; // للحماية
+import Profile from './components/Profile';         // للمسار المتداخل والمطلوب
+import ProfileDetails from './components/ProfileDetails'; // للمسارات المتداخلة (المستوى الثالث)
+import ProfileSettings from './components/ProfileSettings'; // للمسارات المتداخلة (المستوى الثالث)
 
-// مكون تخطيط (Layout) للمسارات المتداخلة (المستوى الثاني)
+// مكون تخطيط (Layout) للمسارات المتداخلة في المستوى الثاني
 const SettingsLayout = () => (
     <div style={{ padding: '20px' }}>
         <h2>إعدادات المستخدم</h2>
-        {/* Outlet هو المكان الذي ستظهر فيه محتويات Profile.jsx */}
+        {/* Outlet لعرض المكون المتداخل */}
         <Outlet /> 
     </div>
 );
@@ -28,6 +29,7 @@ function App() {
         <Link to="/about" style={{ margin: '0 10px' }}>حول</Link>
         <Link to="/blog/1" style={{ margin: '0 10px' }}>مقالة مدونة (ديناميكي)</Link>
         <Link to="/user" style={{ margin: '0 10px' }}>الإعدادات (متداخل)</Link>
+        <Link to="/profile" style={{ margin: '0 10px' }}>ملف شخصي (مطلوب)</Link>
         <Link to="/dashboard" style={{ margin: '0 10px' }}>لوحة القيادة (محمي)</Link>
       </nav>
 
@@ -35,17 +37,19 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         
-        {/* 💡 Dynamic routing implemented: المسار الديناميكي المطلوب */}
+        {/* 💡 الإصلاح الأخير المطلوب: المسار الثابت /profile */}
+        <Route path="/profile" element={<Profile />} /> 
+        
+        {/* Dynamic routing implemented: /blog/:id */}
         <Route path="/blog/:id" element={<BlogPost />} /> 
 
-        {/* 💡 Nested routes implemented: المسارات المتداخلة */}
+        {/* Nested routes implemented: /user/profile */}
         <Route path="/user" element={<SettingsLayout />}>
-            {/* المسار الفرعي profile الذي يستخدم Profile.jsx */}
             <Route path="profile" element={<Profile />} /> 
             <Route path="settings" element={<h2>إعدادات عامة</h2>} />
         </Route>
 
-        {/* 💡 Protected route implemented: المسار المحمي */}
+        {/* Protected route implemented: /dashboard */}
         <Route 
             path="/dashboard" 
             element={
