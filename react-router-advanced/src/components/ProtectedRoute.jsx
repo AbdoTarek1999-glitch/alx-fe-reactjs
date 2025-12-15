@@ -1,13 +1,13 @@
 // src/components/ProtectedRoute.jsx
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth'; // تم استيراده بشكل صحيح
 
 const ProtectedRoute = ({ children }) => {
-  // افترض المصادقة (Authenticated) لإنجاز المهمة
-  const isAuthenticated = true; 
+  const { isAuthenticated } = useAuth(); // تم استخدامه بشكل صحيح
   
+  // منطق الحماية
   if (!isAuthenticated) {
-    // توجيه المستخدم إذا لم يكن مسجل دخوله
     return <Navigate to="/" replace />;
   }
 
