@@ -1,17 +1,14 @@
-import RegistrationForm from "./components/RegistrationForm";
-import FormikForm from "./components/formikForm";
+// src/App.jsx
+
+import RegistrationForm from './components/RegistrationForm';
+import FormikForm from './components/FormikForm'; // المكون الجديد
 
 function App() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Advanced Form Handling</h1>
-
-      <h2>Controlled Components Form</h2>
+    <div style={{ padding: '20px' }}>
+      <h1>مهمة معالجة النماذج</h1>
       <RegistrationForm />
-
       <hr />
-
-      <h2>Formik Form</h2>
       <FormikForm />
     </div>
   );

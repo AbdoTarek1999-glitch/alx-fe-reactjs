@@ -1,69 +1,64 @@
-import { useState } from "react";
+// src/components/RegistrationForm.jsx
 
-export default function RegistrationForm() {
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+import React, { useState } from 'react';
 
-  const [error, setError] = useState("");
+const RegistrationForm = () => {
+  // 1. تعريف الحالة
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+  const validate = () => {
+    let newErrors = {};
+    if (!username) newErrors.username = "اسم المستخدم مطلوب";
+    if (!email) newErrors.email = "البريد الإلكتروني مطلوب";
+    if (password.length < 6) newErrors.password = "يجب أن تكون كلمة المرور 6 أحرف على الأقل";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!form.username || !form.email || !form.password) {
-      setError("All fields are required");
-      return;
+    if (validate()) {
+      alert(`تم التسجيل: ${username}, ${email}`);
+      // هنا يمكنك إرسال البيانات إلى API
     }
-
-    console.log("Registered User:", form);
-    setError("");
-    alert("User registered successfully!");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ marginBottom: '40px', border: '1px solid #ccc', padding: '20px' }}>
+      <h2>التسجيل (Controlled Components)</h2>
       <div>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={form.username}
-          onChange={handleChange}
+        <label>اسم المستخدم:</label>
+        <input 
+          type="text" 
+          value={username} // 💡 الإصلاح 1: ربط القيمة بالحالة
+          onChange={(e) => setUsername(e.target.value)} 
         />
+        {errors.username && <p style={{ color: 'red' }}>{errors.username}</p>}
       </div>
-
       <div>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
+        <label>البريد الإلكتروني:</label>
+        <input 
+          type="email" 
+          value={email} // 💡 الإصلاح 2: ربط القيمة بالحالة
+          onChange={(e) => setEmail(e.target.value)} 
         />
+        {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
       </div>
-
       <div>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
+        <label>كلمة المرور:</label>
+        <input 
+          type="password" 
+          value={password} // 💡 الإصلاح 3: ربط القيمة بالحالة
+          onChange={(e) => setPassword(e.target.value)} 
         />
+        {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
       </div>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <button type="submit">Register</button>
+      <button type="submit">تسجيل</button>
     </form>
   );
-}
+};
+
+export default RegistrationForm;
