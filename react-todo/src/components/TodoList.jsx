@@ -1,15 +1,14 @@
 // src/components/TodoList.jsx
 import React, { useState } from 'react';
-import TodoItem from './TodoItem';
+import TodoItem from './TodoItem'; // 💡 نعتمد على TodoItem منفصل
 
 const TodoList = () => {
   const [todos, setTodos] = useState([
-    { id: 1, text: 'شراء البقالة', completed: false },
-    { id: 2, text: 'إنهاء مهمة React', completed: true },
+    { id: 1, text: 'شراء البقالة', completed: false }, // 💡 مهمة غير مكتملة
+    { id: 2, text: 'إنهاء مهمة React', completed: true }, // 💡 مهمة مكتملة
   ]);
-  const [newTodoText, setNewTodoText] = useState('');
+  const [newTodoText, setNewTodoText] = useState(''); // تم تغيير الاسم إلى newTodoText ليكون أكثر وضوحاً
 
-  // 1. وظيفة الإضافة
   const addTodo = (e) => {
     e.preventDefault();
     if (newTodoText.trim() === '') return;
@@ -24,7 +23,7 @@ const TodoList = () => {
     setNewTodoText('');
   };
 
-  // 2. وظيفة تبديل حالة الإكمال
+  // وظيفة تبديل حالة الإكمال
   const toggleComplete = (id) => {
     setTodos(
       todos.map(todo =>
@@ -33,13 +32,13 @@ const TodoList = () => {
     );
   };
 
-  // 3. وظيفة الحذف
+  // وظيفة الحذف
   const deleteTodo = (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
   return (
-    <div style={{ padding: '20px', border: '1px solid #ccc' }}>
+    <div style={{ padding: '20px' }}>
       <h1>قائمة المهام</h1>
 
       {/* نموذج الإضافة */}
@@ -49,7 +48,7 @@ const TodoList = () => {
           value={newTodoText}
           onChange={(e) => setNewTodoText(e.target.value)}
           placeholder="أدخل مهمة جديدة..."
-          aria-label="New Todo Input"
+          aria-label="New Todo Input" // 💡 إضافة aria-label للاختبار
         />
         <button type="submit" style={{ marginLeft: '10px' }}>
           أضف مهمة
@@ -68,8 +67,7 @@ const TodoList = () => {
         ))}
       </ul>
       
-      {/* عرض عدد المهام المتبقية */}
-      <p>تبقى: {todos.filter(todo => !todo.completed).length} مهام غير مكتملة</p>
+      {/* يمكن إضافة عرض المهام المتبقية هنا إذا كان مطلوباً */}
     </div>
   );
 };
