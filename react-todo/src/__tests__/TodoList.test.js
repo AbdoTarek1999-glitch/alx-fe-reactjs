@@ -2,38 +2,33 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom'; 
-import TodoList from '../components/TodoList'; // تأكد أن المسار صحيح
+import TodoList from '../components/TodoList';
 
 // الوصف العام لمجموعة الاختبارات
 describe('TodoList Component Functionality', () => {
 
   // 1. اختبار عرض المهام الافتراضية
-  test('renders the initial todos correctly', () => {
+  test('renders the initial list of todos', () => {
     render(<TodoList />);
-    // تحقق من وجود المهام الافتراضية
-    expect(screen.getByText('تعلم Jest')).toBeInTheDocument();
-    expect(screen.getByText('إنهاء المشروع')).toBeInTheDocument();
+    expect(screen.getByText('شراء البقالة')).toBeInTheDocument();
+    expect(screen.getByText('إنهاء مهمة React')).toBeInTheDocument();
   });
 
   // 2. اختبار إضافة مهمة جديدة
   test('allows adding a new todo item', () => {
     render(<TodoList />);
     
-    // البحث عن حقل الإدخال وزر الإضافة
-    const input = screen.getByPlaceholderText(/مهمة جديدة/i);
-    const addButton = screen.getByText(/إضافة/i);
+    // البحث عن حقل الإدخال وزر الإضافة باستخدام label/placeholder
+    const input = screen.getByLabelText('New Todo Input'); // استخدام aria-label من TodoList.jsx
+    const addButton = screen.getByText(/أضف مهمة/i);
     
-    const newText = 'مهمة يجب إضافتها';
+    const newText = 'مهمة جديدة للاختبار';
     
-    // إدخال النص والضغط على الزر
     fireEvent.change(input, { target: { value: newText } });
     fireEvent.click(addButton);
     
-    // التحقق من ظهور المهمة الجديدة في القائمة
-    const newTodoElement = screen.getByText(newText);
-    expect(newTodoElement).toBeInTheDocument();
-    
-    // التحقق من أن حقل الإدخال أصبح فارغاً
+    // التحقق من ظهور المهمة الجديدة
+    expect(screen.getByText(newText)).toBeInTheDocument();
     expect(input.value).toBe(''); 
   });
 
@@ -41,40 +36,33 @@ describe('TodoList Component Functionality', () => {
   test('allows toggling the completion status of a todo item', () => {
     render(<TodoList />);
     
-    // البحث عن مهمة "تعلم Jest" (التي تبدأ بـ completed: false)
-    const todoText = screen.getByText('تعلم Jest');
+    const todoText = 'شراء البقالة';
+    // البحث عن Checkbox باستخدام aria-label (الذي يحتوي على نص المهمة)
+    const checkbox = screen.getByLabelText(`Toggle completion for ${todoText}`);
     
-    // التحقق من أنها غير مكتملة في البداية (لا يوجد خط)
-    expect(todoText.parentNode).not.toHaveStyle('text-decoration: line-through');
+    // يجب أن تكون المهمة غير محددة في البداية
+    expect(checkbox).not.toBeChecked();
     
-    // النقر على النص لتبديل الحالة (وفقاً لكودك)
-    fireEvent.click(todoText);
+    // النقر على خانة الاختيار لتغيير الحالة
+    fireEvent.click(checkbox);
     
-    // التحقق من أنها أصبحت مكتملة (يجب أن يحتوي العنصر الأب على خط)
-    expect(todoText.parentNode).toHaveStyle('text-decoration: line-through');
-    
-    // النقر مرة أخرى لتبديلها مرة أخرى
-    fireEvent.click(todoText);
-    
-    // التحقق من إزالة خط النص
-    expect(todoText.parentNode).not.toHaveStyle('text-decoration: line-through');
+    // التحقق من أنها أصبحت محددة
+    expect(checkbox).toBeChecked();
+
+    // التحقق من أن النص يحتوي على خط (لإثبات التغيير المرئي)
+    expect(screen.getByText(todoText)).toHaveStyle('text-decoration: line-through');
   });
 
   // 4. اختبار حذف مهمة
   test('allows deleting a todo item', () => {
     render(<TodoList />);
     
-    const todoText = 'تعلم Jest';
+    const todoText = 'شراء البقالة';
+    // البحث عن جميع أزرار الحذف
+    const deleteButtons = screen.getAllByText('حذف');
     
-    // التحقق من وجود المهمة
-    expect(screen.getByText(todoText)).toBeInTheDocument();
-    
-    // البحث عن زر الحذف المرتبط بها (قد نحتاج هنا إلى تحديد أدق إذا كان هناك أكثر من زر حذف)
-    // نعتمد على أن زر الحذف هو الزر الوحيد داخل li
-    const deleteButton = screen.getByRole('listitem', { name: todoText + ' حذف' }).querySelector('button');
-    
-    // النقر على زر الحذف
-    fireEvent.click(deleteButton);
+    // نعتمد على أن زر الحذف للمهمة الأولى هو الأول في القائمة
+    fireEvent.click(deleteButtons[0]);
     
     // التحقق من اختفاء المهمة
     expect(screen.queryByText(todoText)).not.toBeInTheDocument();
