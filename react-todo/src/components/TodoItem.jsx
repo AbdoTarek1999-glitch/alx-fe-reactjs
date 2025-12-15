@@ -12,12 +12,13 @@ const TodoItem = ({ todo, toggleComplete, deleteTodo }) => {
       textDecoration: todo.completed ? 'line-through' : 'none' 
     }}>
       <div>
-        {/* Checkbox لتغيير حالة الإكمال */}
+        {/* Checkbox لتغيير حالة الإكمال (يجب أن يكون موجوداً) */}
         <input
           type="checkbox"
           checked={todo.completed}
           onChange={() => toggleComplete(todo.id)}
-          aria-label={`Toggle completion for ${todo.text}`}
+          // 💡 aria-label ضروري للاختبار لكي يتم العثور على العنصر
+          aria-label={`Toggle completion for ${todo.text}`} 
         />
         <span style={{ marginLeft: '10px' }}>{todo.text}</span>
       </div>
