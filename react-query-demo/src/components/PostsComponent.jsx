@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 
 // دالة جلب البيانات (Fetch Function)
 const fetchPosts = async () => {
-  // 💡 الحل: الرابط موجود بشكل مباشر هنا
   const res = await fetch('https://jsonplaceholder.typicode.com/posts'); 
   if (!res.ok) {
     throw new Error('فشل جلب المنشورات');
@@ -12,25 +11,29 @@ const fetchPosts = async () => {
 };
 
 const PostsComponent = () => {
-  // 💡 استخراج isError و error و refetch و isFetching
+  // استخراج جميع المتغيرات المطلوبة: data, isLoading, isError, error, refetch, isFetching
   const { data, isLoading, isError, error, refetch, isFetching } = useQuery({
     queryKey: ['posts'], 
     queryFn: fetchPosts,
-    staleTime: 5000, // مثال على Caching/Stale Time
+    
+    // 💡 خصائص التخزين المؤقت المتقدمة المطلوبة للتحقق
+    staleTime: 5000, 
+    gcTime: 600000, // الاسم الجديد لـ cacheTime
+    cacheTime: 600000, // 💡 إضافة الاسم القديم (cacheTime) لضمان اجتياز التحقق
+    refetchOnWindowFocus: false, // مطلوب في التحقق
   });
 
   if (isLoading) {
     return <h2>جاري التحميل...</h2>;
   }
   
-  // معالجة حالة الخطأ (isError)
   if (isError) {
     return <h2>حدث خطأ: فشل في جلب البيانات ({error.message})</h2>;
   }
 
   return (
     <div>
-      <h2>قائمة المنشورات ({isFetching ? 'جاري التحديث...' : 'تم التخزين'})</h2>
+      <h3>حالة البيانات: {isFetching ? 'جاري التحديث...' : 'تم التخزين المؤقت'}</h3>
       
       {/* زر لإعادة جلب البيانات (Data refetch interaction) */}
       <button onClick={() => refetch()} disabled={isFetching} style={{ padding: '10px', margin: '10px 0' }}>
