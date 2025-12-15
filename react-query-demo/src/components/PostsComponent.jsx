@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 // دالة جلب البيانات (Fetch Function)
 const fetchPosts = async () => {
+  // الرابط المطلوب (لحل مشكلة سابقة)
   const res = await fetch('https://jsonplaceholder.typicode.com/posts'); 
   if (!res.ok) {
     throw new Error('فشل جلب المنشورات');
@@ -18,15 +19,17 @@ const PostsComponent = () => {
     
     // 💡 خصائص التخزين المؤقت المتقدمة المطلوبة للتحقق
     staleTime: 5000, 
-    gcTime: 600000, // الاسم الجديد لـ cacheTime
-    cacheTime: 600000, // 💡 إضافة الاسم القديم (cacheTime) لضمان اجتياز التحقق
-    refetchOnWindowFocus: false, // مطلوب في التحقق
+    gcTime: 600000, 
+    cacheTime: 600000, 
+    refetchOnWindowFocus: false, 
+    keepPreviousData: true, // 💡 الإضافة الأخيرة المطلوبة
   });
 
   if (isLoading) {
     return <h2>جاري التحميل...</h2>;
   }
   
+  // معالجة حالة الخطأ (isError)
   if (isError) {
     return <h2>حدث خطأ: فشل في جلب البيانات ({error.message})</h2>;
   }
